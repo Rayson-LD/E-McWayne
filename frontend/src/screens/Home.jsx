@@ -9,7 +9,7 @@ function Home() {
     
   
     const fetchData = async() => {
-      const  items = await axios.get('/api/product');
+      const  items = await axios.get('/api/products');
       setproducts(items.data)
     }
     fetchData()

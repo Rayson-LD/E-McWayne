@@ -16,13 +16,10 @@ Productrouter.get('/',async(req,res)=>{
 Productrouter.get('/:id',async(req,res)=>{
     try {
         const p = await Product.findById(req.params.id);
-        if(p)
-        {
+       
             res.json(p)
-        }
-        else{
-           throw new Error(`Not Found - ${req.originalUrl}`)
-        }
+        
+        
             
     } catch (error) {
         res.status(400).json({message:"Product not found"})
