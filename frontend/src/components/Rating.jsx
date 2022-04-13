@@ -15,7 +15,7 @@ function Rating({rating,reviews}) {
            <input type="radio"   className="mask mask-star bg-orange-400 mask-half-1" disabled defaultChecked={rating===4.5}/>
            <input type="radio"   className="mask mask-star bg-orange-400 mask-half-2" disabled defaultChecked={rating===5}/>
      
-  <p class="pl-5">{reviews&&reviews} Reviews</p>
+  <p className="pl-5">{reviews&&reviews} Reviews</p>
 </div>
   )
 }
