@@ -5,6 +5,7 @@ const Productrouter = express.Router()
 Productrouter.get('/',async(req,res)=>{
     try {
         const p = await Product.find({});
+       
         res.json(p)
     } catch (error) {
         res.status(400).json({message:"Products not available"})
