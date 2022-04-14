@@ -11,15 +11,16 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.10",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "react-toastify": "^8.2.0"
   },
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "insert":"node backend/seeder",
-    "delete":"node backend/seeder -d"
+    "insert": "node backend/seeder",
+    "delete": "node backend/seeder -d"
   },
   "repository": {
     "type": "git",

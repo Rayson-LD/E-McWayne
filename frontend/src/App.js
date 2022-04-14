@@ -4,8 +4,10 @@ import Home from './screens/Home';
 import SingleProductScreen from './screens/SingleProductScreen';
 import Profile from './screens/Profile';
 import Cart from './screens/Cart';
+
 function App() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -14,6 +16,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
       </Routes>
     </Router>
+    </>
   );
 }
 

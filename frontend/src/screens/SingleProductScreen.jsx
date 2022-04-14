@@ -1,18 +1,17 @@
-import {useState,useEffect} from 'react'
+import {useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import Header from '../components/Header'
 import Rating from '../components/Rating'
-import axios from 'axios'
+import {useSelector,useDispatch} from'react-redux'
+import { listProductDetails } from '../actions/productActions'
 function SingleProductScreen() {
   const param = useParams()
-  const [product, setproduct] = useState({});
+  const dispatch = useDispatch()
+  const productList = useSelector(state => state.productDetails)
+  const {product} = productList
   useEffect(() => {
-    const fetchData = async() => {
-      const  item = await axios.get(`/api/products/${param.id}`);
-      setproduct(item.data)
-    }
-    fetchData()
-  }, [])
+    dispatch(listProductDetails(param.id))
+  }, [dispatch,param.id])
   return (
     <div>
       <Header/>
