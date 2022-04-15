@@ -10,7 +10,7 @@ export const addToCart = (id) => async(dispatch,getState)=>{
         //sending data to cart reducer
         dispatch({type:'CART_ADD_ITEM',payload:{
             product:data._id,
-            name:data.image,
+            name:data.name,
             price:data.price,
             image:data.image,
             countInStock:data.countInStock
