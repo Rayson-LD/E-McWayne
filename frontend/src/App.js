@@ -13,7 +13,11 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/product/pid=:id/item=:name' element={<SingleProductScreen/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        {/*header view cart route */}
         <Route path='/cart' element={<Cart/>}/>
+
+        {/*add to cart button */}
+        <Route path='/cart/pid=:id' element={<Cart/>}/>
       </Routes>
     </Router>
     </>
