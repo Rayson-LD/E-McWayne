@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 //thunk is an func within a func
-export const addToCart = (id) => async(dispatch,getState)=>{
+export const addToCart = (id,qty) => async(dispatch,getState)=>{
     
         //getting the data
         const {data} = await axios.get(`/api/products/${id}`);
@@ -13,7 +13,8 @@ export const addToCart = (id) => async(dispatch,getState)=>{
             name:data.name,
             price:data.price,
             image:data.image,
-            countInStock:data.countInStock
+            countInStock:data.countInStock,
+            quantity:qty
         }})
         //adding cart items to local storage
         localStorage.setItem('cartItems',JSON.stringify(getState().cart.cartItems));
