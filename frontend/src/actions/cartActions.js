@@ -1,5 +1,5 @@
 import axios from "axios"
-import { json } from "express";
+
 
 //thunk is an func within a func
 export const addToCart = (id) => async(dispatch,getState)=>{
