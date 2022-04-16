@@ -17,7 +17,7 @@ function App() {
         <Route path='/cart' element={<Cart/>}/>
 
         {/*add to cart button */}
-        <Route path='/cart/pid=:id' element={<Cart/>}/>
+        <Route path='/cart/pid=:id/qty=:qty' element={<Cart/>}/>
       </Routes>
     </Router>
     </>

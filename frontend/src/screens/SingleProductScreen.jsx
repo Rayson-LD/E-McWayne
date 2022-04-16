@@ -7,16 +7,14 @@ import { listProductDetails } from '../actions/productActions'
 function SingleProductScreen() {
   const param = useParams()
   const dispatch = useDispatch()
-
+  const qty=1
   const productList = useSelector(state => state.productDetails)
   const {product} = productList
   useEffect(() => {
     dispatch(listProductDetails(param.id))
   }, [dispatch,param.id])
 
-  const addCartHandler = ()=>{
-    console.log("Thisiist")
-  }
+ 
   return (
     <div>
       <Header/>
@@ -24,8 +22,8 @@ function SingleProductScreen() {
         <div className="grid flex-grow px-2 bg-ghost rounded-box place-items-left">
           <img src={product.image} alt="Shoes" className="rounded-xl" />
           <div className="grid grid-rows-1 grid-flow-col gap-2 pt-5">
-            <Link to={`/cart/pid=${param.id}?qty=${product.countInStock}`}>
-          <button style={{borderRadius:'0',borderWidth:'2px',color:'yellow'}} className="btn btn-outline w-40 gap-2" onClick={addCartHandler} disabled={product.countInStock===0}>
+            <Link to={`/cart/pid=${param.id}/qty=${qty}`}>
+          <button style={{borderRadius:'0',borderWidth:'2px',color:'yellow'}} className="btn btn-outline w-40 gap-2"  disabled={product.countInStock===0}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
             ADD TO CART
           </button>
