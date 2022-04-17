@@ -2,7 +2,7 @@ import React from 'react'
 
 function Loader() {
   return (
-    <div className="w-60 h-52 border-2 rounded-md mx-auto mt-20">
+    <div className="w-60 h-80 border-2 rounded-md mx-auto mt-20">
   <div className="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
     <div className="w-12 bg-gray-300 h-12 rounded-full ">
     </div>

@@ -1,5 +1,5 @@
 import {useSelector,useDispatch} from'react-redux'
-import {useEffect,useState} from 'react'
+import {useEffect} from 'react'
 import { useParams, Link,useNavigate} from 'react-router-dom'
 import {addToCart,removeFromCart} from '../actions/cartActions'
 import {FaTrash} from 'react-icons/fa'
@@ -8,9 +8,10 @@ function Cart() {
   const dispatch = useDispatch()
   const cartList = useSelector(state => state.cart)
   const navigate=useNavigate()
+  const qty=1;
   const {cartItems} = cartList
   useEffect(() => {
-    dispatch(addToCart(param.id,Number(param.qty)))
+    dispatch(addToCart(param.id,Number(qty)))
   }, [dispatch,param])
 
   const removeFromCartHandler = (id)=>{
