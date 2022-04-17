@@ -10,6 +10,7 @@ function Home() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
   const {loading,error,products} = productList
+  const repeat=[3]
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
@@ -17,7 +18,11 @@ function Home() {
     <div>
         <Header/>
         <h1 className='text-3xl text-bold'>Our Latest Products</h1>
-        {loading?<Loader/>
+        {loading?<div className="overflow-x-auto">
+        <div className="grid grid-rows-1 grid-flow-col gap-4">
+          <Loader />
+          </div>
+          </div>
         : error ? <h1>{error}</h1>
         :<div className="overflow-x-auto">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
