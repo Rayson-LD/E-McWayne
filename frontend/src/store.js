@@ -4,18 +4,25 @@ import thunk from 'redux-thunk'
 import { productListener } from './reducers/productReducers';
 import { productDetailsListener } from './reducers/productReducers';
 import { cartListener } from './reducers/cartReducers';
+import { userListener } from './reducers/userReducers';
 const reducer = combineReducers({
     productList:productListener,
     productDetails:productDetailsListener,
-    cart:cartListener
+    cart:cartListener,
+    userDetails: userListener,
 });
 
 //getting data from local storage
 const cartItemsFromStorage = localStorage.getItem('cartItems')
 ? JSON.parse(localStorage.getItem('cartItems'))
 : []
+//getting user info from local storage
+const userInfoFromStorage = localStorage.getItem('userInfo')
+? JSON.parse(localStorage.getItem('userInfo'))
+: null
 const initialState = {
-    cart:{cartItems:cartItemsFromStorage}
+    cart:{cartItems:cartItemsFromStorage},
+    userDetails:{userInfo:userInfoFromStorage}
 }
 
 
