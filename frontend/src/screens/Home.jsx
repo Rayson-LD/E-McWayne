@@ -20,7 +20,7 @@ function Home() {
         <h1 className='text-3xl text-bold'>Our Latest Products</h1>
         {loading?<div className="overflow-x-auto">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
-          <Loader />
+          <Loader skeletons={6} w={60} h={80}/>
           </div>
           </div>
         : error ? <h1>{error}</h1>
