@@ -3,7 +3,7 @@ import User from "../models/userModel.js";
 import generateToken from '../utils/generateToken.js'
 import { protect } from "../middleware/authMiddleware.js";
 const userRouter = express.Router()
-//@desc - router for getting user details from mongoose user model and auth if user exists or not
+//@desc - router for login from mongoose user model and auth if user exists or not
 userRouter.post('/login',async(req,res)=>{
     try {
         const {email,password} = req.body
