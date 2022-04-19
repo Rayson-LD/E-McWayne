@@ -27,9 +27,17 @@ export const userLogin = (email,password) => async(dispatch)=>{
         
         
         } catch (error) {
-            dispatch({type:'USER_LOGIN_FAIL',payload:error.message});
+            dispatch({type:'USER_LOGIN_FAIL',payload:error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,});
         }
         //adding cart items to local storage
         
     
+}
+ export const userLogout = () => async(dispatch) =>{
+    localStorage.removeItem('userInfo')
+    dispatch({
+        type:'USER_LOGOUT'})
+
 }

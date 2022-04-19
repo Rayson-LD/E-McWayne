@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Loader({skeletons,w,h}) {
+function Loader({w,h,skeletons}) {
   return (
     <>
     {Array(skeletons)
         .fill(1)
         .map(( index) => (
-          <div className={`w-${w} h-${h} border-2 rounded-md mx-auto mt-20`} key={index}>
+          <div className={`border-2 ${w} ${h} rounded-md mx-auto mt-20`}  key={index}>
           <div className="flex animate-pulse flex-row items-center h-full justify-center space-x-5">
             <div className="w-12 bg-gray-300 h-12 rounded-full ">
             </div>

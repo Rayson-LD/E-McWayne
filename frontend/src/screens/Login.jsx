@@ -2,6 +2,7 @@ import {useState,useEffect} from 'react'
 import { useNavigate,useParams,Link } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Loader from '../components/Loader'
+import Message from '../components/Message'
 import {userLogin} from '../actions/userActions.js'
 function Login() {
     const [Email, setEmail] = useState('')
@@ -17,15 +18,18 @@ function Login() {
         {
             navigate(redirect)
         }
-    }, [userInfo,redirect])
+    }, [userInfo,redirect,navigate])
     const submitHandler = ()=>{
         
         dispatch(userLogin(Email,Password))
     }
   return (
       <>
+       {loading&&<Loader skeletons={1} w={'w-full'} h={'h-96'}/>}
+       { error && 
+        <Message error={error} color={'error'}/>}
     <div class="hero min-h-screen bg-base-200">
-        {loading?<Loader skeletons={1} w={96} h={96}/>:error && <h1>{error}</h1>}
+       
   <div class="hero-content flex-col lg:flex-row-reverse">
     <div class="text-center lg:text-left">
       <h1 class="text-5xl font-bold">Login now!</h1>
@@ -54,7 +58,11 @@ function Login() {
       </div>
     </div>
   </div>
+  
+ 
 </div>
+
+       
 </>
   )
 }

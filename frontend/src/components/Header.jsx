@@ -1,6 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import {useSelector,useDispatch} from 'react-redux'
+import {userLogout} from '../actions/userActions.js'
 function Header() {
+  const dispatch = useDispatch()
+  const userLogin = useSelector(state => state.userDetails)
+  const logouthandler = ()=>{
+    dispatch(userLogout())
+  }
+  const {userInfo} = userLogin
   const id=1;
   return (
     <div>
@@ -31,7 +39,8 @@ function Header() {
         </div>
       </div>
     </div>
-    <div className="dropdown dropdown-end">
+    {
+      userInfo?<div className="dropdown dropdown-end">
       <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img src="https://api.lorem.space/image/face?hash=33791" />
@@ -44,11 +53,21 @@ function Header() {
             <span className="badge">New</span>
             </Link>
         </li>
-        <li><Link to ='/login'>Login</Link></li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><a onClick={()=>logouthandler()}>Logout</a></li>
       </ul>
     </div>
+    :
+      <Link to ='/login'>
+        <div class="avatar">
+          <div class="w-10 rounded-full">
+            <img src="https://www.baytekent.com/wp-content/uploads/2016/12/facebook-default-no-profile-pic1.jpg" />
+          </div>
+        </div>
+    </Link>
+
+    }
+    
   </div>
 </div>
     </div>
