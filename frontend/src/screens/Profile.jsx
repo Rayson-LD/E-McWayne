@@ -54,9 +54,9 @@ function Profile() {
        { error && 
         <Message error={error} color={'error'}/>}
         { message && 
-        <Message error={message} color={'error'}/>}
+        <Message error={message} color={'alert-error'}/>}
         { success && 
-        <Message error={'Profile Updated'} color={'success'}/>}
+        <Message error={'Profile Updated'} color={'alert-success'}/>}
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">

@@ -28,7 +28,7 @@ function Login() {
       <>
        {loading&&<Loader skeletons={1} w={'w-full'} h={'h-96'}/>}
        { error && 
-        <Message error={error} color={'error'}/>}
+        <Message error={error} color={'alert-error'}/>}
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">
