@@ -86,4 +86,33 @@ userRouter.get('/profile',protect,async(req,res)=>{
 
 })
 
+//@desc - router for posting user details from mongoose user model and update details in porfile page if user logged in
+userRouter.put('/profile',protect,async(req,res)=>{
+   
+        
+    const user = await User.findById(req.user.id)
+    if(user)
+    {
+        user.name = req.body.name || user.name
+        user.email = req.body.email || user.email
+        if(req.body.password)
+        {
+            user.password = req.body.password || user.password
+        }
+        const updateUser = await user.save()
+        res.json({
+            id:user.id,
+            name:user.name,
+            email:user.email,
+            isAdmin:user.isAdmin,
+            token:generateToken(user.id)
+            })
+    }
+    else{
+        res.status(401).json({message:'User not found'})
+    }
+
+
+})
+
 export default userRouter
