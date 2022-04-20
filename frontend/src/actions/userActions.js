@@ -76,7 +76,38 @@ export const userRegister = (name,email,password) => async(dispatch)=>{
         ? error.response.data.message
         : error.message,});
     }
-    //adding cart items to local storage
+    
+    
+
+}
+
+export const getuserDetails = () => async(dispatch,getState)=>{
+    try {
+    //request
+    dispatch({
+        type:'USER_DETAILS_REQUEST'})
+    const {userLogin:{userInfo}} =  getState()
+    //success
+        //passing the headers for auth
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        //getting the data
+    const {data} = await axios.get(`/api/users/profile`,config);
+    dispatch({
+        type:'USER_DETAILS_SUCCESS',
+        payload:data
+    })
+    
+    } catch (error) {
+        dispatch({type:'USER_DETAILS_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+    
     
 
 }

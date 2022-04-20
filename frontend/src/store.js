@@ -4,13 +4,14 @@ import thunk from 'redux-thunk'
 import { productListener } from './reducers/productReducers';
 import { productDetailsListener } from './reducers/productReducers';
 import { cartListener } from './reducers/cartReducers';
-import { userListener,registerListener } from './reducers/userReducers';
+import { userListener,registerListener,updateListener } from './reducers/userReducers';
 const reducer = combineReducers({
     productList:productListener,
     productDetails:productDetailsListener,
     cart:cartListener,
     userDetails: userListener,
-    register:registerListener
+    register:registerListener,
+    userProfile:updateListener,
 });
 
 //getting data from local storage
