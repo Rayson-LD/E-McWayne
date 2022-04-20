@@ -20,10 +20,10 @@ function Register() {
         if(userInfo)
         {
             navigate(redirect)
-            console.log('something here')
+           
         }
         else{
-            console.log('nothing')
+            
         }
     }, [userInfo,redirect,navigate])
     const submitHandler = ()=>{

@@ -86,9 +86,10 @@ export const getuserDetails = () => async(dispatch,getState)=>{
     //request
     dispatch({
         type:'USER_DETAILS_REQUEST'})
-    const {userLogin:{userInfo}} =  getState()
+    const {userDetails:{userInfo}} =  getState()
     //success
         //passing the headers for auth
+        
         const config = {
             headers:{
                 'Content-Type':'application/json',
@@ -97,6 +98,7 @@ export const getuserDetails = () => async(dispatch,getState)=>{
         }
         //getting the data
     const {data} = await axios.get(`/api/users/profile`,config);
+    
     dispatch({
         type:'USER_DETAILS_SUCCESS',
         payload:data
