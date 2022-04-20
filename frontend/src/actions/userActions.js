@@ -113,3 +113,36 @@ export const getuserDetails = () => async(dispatch,getState)=>{
     
 
 }
+
+export const updateUserDetails = (user) => async(dispatch,getState)=>{
+    try {
+    //request
+    dispatch({
+        type:'USER_UPDATE_PROFILE_REQUEST'})
+    const {userDetails:{userInfo}} =  getState()
+    //success
+        //passing the headers for auth
+        
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        //getting the data
+    const {data} = await axios.put(`/api/users/profile`,user,config);
+    
+    dispatch({
+        type:'USER_UPDATE_PROFILE_SUCCESS',
+        payload:data
+    })
+    
+    } catch (error) {
+        dispatch({type:'USER_UPDATE_PROFILE_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+    
+    
+
+}

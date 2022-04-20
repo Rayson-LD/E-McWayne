@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import {userLogout} from '../actions/userActions.js'
 function Header() {
@@ -10,6 +10,12 @@ function Header() {
   }
   const {userInfo} = userLogin
   const id=1;
+  const navigate = useNavigate()
+
+  const profile = () =>{
+    navigate('/profile')
+    window.location.reload()
+  }
   return (
     <div>
         <div className="navbar bg-base-300">
@@ -48,10 +54,10 @@ function Header() {
       </label>
       <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
         <li>
-          <Link to='/profile'>
+          <a onClick={()=>profile()}>
             Profile
             <span className="badge">New</span>
-            </Link>
+            </a>
         </li>
         <li><a>Settings</a></li>
         <li><a onClick={()=>logouthandler()}>Logout</a></li>

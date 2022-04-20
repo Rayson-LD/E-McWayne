@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import {getuserDetails} from '../actions/userActions.js'
+import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
 function Profile() {
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
@@ -19,6 +19,10 @@ function Profile() {
     //to check if user is logged in rr not
     const userProfile = useSelector(state => state.userProfile)
     const {user} = userProfile
+
+    //to check if update is successfull
+    const update = useSelector(state => state.update)
+    const {success} = update
     useEffect(() => {
         if(!userInfo)
         {
@@ -37,7 +41,7 @@ function Profile() {
     const submitHandler = ()=>{
       if(Password === ConfirmPassword)
       {
-          
+          dispatch(updateUserDetails({id:user.id,name:Name,email:Email,password:Password}))
       }
       else{
           setmessage('Passwords donot Match')
@@ -51,6 +55,8 @@ function Profile() {
         <Message error={error} color={'error'}/>}
         { message && 
         <Message error={message} color={'error'}/>}
+        { success && 
+        <Message error={'Profile Updated'} color={'success'}/>}
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">
@@ -76,13 +82,13 @@ function Profile() {
           <label class="label">
             <span class="label-text">Password</span>
           </label>
-          <input type="text" value={Password} placeholder="password" onChange={(e)=>setPassword(e.target.value)}  class="input input-bordered" required/>
+          <input type="password" value={Password} placeholder="password" onChange={(e)=>setPassword(e.target.value)}  class="input input-bordered" required/>
         </div>
         <div class="form-control">
           <label class="label">
             <span class="label-text">Confirm Password</span>
           </label>
-          <input type="text" value={ConfirmPassword} placeholder="Confirm Password" onChange={(e)=>setConfirmPassword(e.target.value)}  class="input input-bordered" required/>
+          <input type="password" value={ConfirmPassword} placeholder="Confirm Password" onChange={(e)=>setConfirmPassword(e.target.value)}  class="input input-bordered" required/>
         </div>
         <div class="form-control mt-6">
           <button class="btn btn-primary" onClick={()=>submitHandler()}>Update</button>

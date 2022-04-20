@@ -17,7 +17,7 @@ function Login() {
         if(userInfo)
         {
             navigate(redirect)
-            console.log('something here')
+            
         }
     }, [userInfo,redirect,navigate])
     const submitHandler = ()=>{
@@ -48,7 +48,7 @@ function Login() {
           <label class="label">
             <span class="label-text">Password</span>
           </label>
-          <input type="text" value={Password} placeholder="password" onChange={(e)=>setPassword(e.target.value)}  class="input input-bordered" required/>
+          <input type="password" value={Password} placeholder="password" onChange={(e)=>setPassword(e.target.value)}  class="input input-bordered" required/>
           <label class="label">
             <Link to={redirect?`/register?redirect=${redirect}`:'/register'} class="label-text-alt link link-hover">New User?</Link>
           </label>

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import { productListener } from './reducers/productReducers';
 import { productDetailsListener } from './reducers/productReducers';
 import { cartListener } from './reducers/cartReducers';
-import { userListener,registerListener,updateListener } from './reducers/userReducers';
+import { userListener,registerListener,updateListener,updateProfile } from './reducers/userReducers';
 const reducer = combineReducers({
     productList:productListener,
     productDetails:productDetailsListener,
@@ -12,6 +12,7 @@ const reducer = combineReducers({
     userDetails: userListener,
     register:registerListener,
     userProfile:updateListener,
+    update:updateProfile,
 });
 
 //getting data from local storage
