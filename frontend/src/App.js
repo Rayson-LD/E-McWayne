@@ -5,7 +5,7 @@ import SingleProductScreen from './screens/SingleProductScreen';
 import Profile from './screens/Profile';
 import Cart from './screens/Cart';
 import Login from './screens/Login';
-
+import Register from './screens/Register';
 function App() {
   return (
     <>
@@ -16,6 +16,7 @@ function App() {
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/cart/pid=:id' element={<Cart/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
       </Routes>
     </Router>
     </>
