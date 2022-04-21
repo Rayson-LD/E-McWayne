@@ -7,6 +7,7 @@ import Cart from './screens/Cart';
 import Login from './screens/Login';
 import Register from './screens/Register';
 import Shipping from './screens/Shipping';
+import Payment from './screens/Payment';
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/shipping' element={<Shipping/>}/>
+        <Route path='/payment' element={<Payment/>}/>
       </Routes>
     </Router>
     </>
