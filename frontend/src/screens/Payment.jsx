@@ -37,14 +37,14 @@ function Payment() {
             <div class="form-control">
             <label class="label cursor-pointer">
             <span class="label-text">Credit/Debit</span>  
-                <input type="radio" id="Stripe" name="radio-6" value="Stripe" onChange={(e)=>setPayment(e.target.value)} class="radio checked:bg-blue-500"/>
+                <input type="radio" id="Stripe" name="radio-6" value="Stripe" onChange={(e)=>setPayment(e.target.value)} class="radio checked:bg-green-500" checked/>
                 
             </label>
             </div>
             <div class="form-control">
             <label class="label cursor-pointer"> 
             <span class="label-text">Cash On Delivery</span> 
-                <input type="radio" id="CashOnDelivery" name="radio-6" value="CashOnDelivery" onChange={(e)=>setPayment(e.target.value)} class="radio checked:bg-blue-500"/>
+                <input type="radio" id="CashOnDelivery" name="radio-6" value="Cash On Delivery" onChange={(e)=>setPayment(e.target.value)} class="radio checked:bg-blue-500" checked/>
                 
             </label>
             </div>

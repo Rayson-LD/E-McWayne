@@ -7,10 +7,10 @@ import Header from '../components/Header.jsx'
 function PlaceOrder() {
     const details = useSelector(state => state.cart)
     const {shippingAddress,cartItems,paymentMethod} = details
-    const ItemsPrice = cartItems.reduce((acc,item)=>acc+item.qty*item.price,0).toFixed(2)
-    const shippingPrice = ItemsPrice<200? 70:0
-    const Tax = (ItemsPrice*0.25).toFixed(2)
-    const Total = (Number(ItemsPrice) + Number(shippingPrice) + Number(Tax)).toFixed(2)
+     details.ItemsPrice = cartItems.reduce((acc,item)=>acc+item.qty*item.price,0).toFixed(2)
+     details.shippingPrice = details.ItemsPrice<200? 70:0
+     details.Tax = (details.ItemsPrice*0.25).toFixed(2)
+     details.Total = (Number(details.ItemsPrice) + Number(details.shippingPrice) + Number(details.Tax)).toFixed(2)
   
   return (
       <>
@@ -47,19 +47,19 @@ function PlaceOrder() {
         <tbody>
           <tr >
             <td>Items:</td>
-            <td>Rs : {ItemsPrice}</td>
+            <td>Rs : {details.ItemsPrice}</td>
           </tr>
           <tr >
             <td>Shipping:</td>
-            <td>Rs : {shippingPrice}</td>
+            <td>Rs : {details.shippingPrice}</td>
           </tr>
           <tr >
             <td>Tax:</td>
-            <td>Rs : {Tax}</td>
+            <td>Rs : {details.Tax}</td>
           </tr>
           <tr >
             <td>Total:</td>
-            <td>Rs : {Total}</td>
+            <td>Rs : {details.Total}</td>
           </tr>
         </tbody>
       </table>
