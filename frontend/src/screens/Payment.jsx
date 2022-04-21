@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import {savePaymentMethod} from '../actions/cartActions.js'
 import Checkout from '../components/Checkout.jsx'
+import Header from '../components/Header.jsx'
 function Payment() {
     const ship = useSelector(state => state.cart)
     const {shippingAddress} = ship
@@ -20,6 +21,7 @@ function Payment() {
     }
   return (
       <>
+      <Header/>
       <Checkout step1 step2 step3/>
     <div class="flex mt-5 justify-center bg-base-100">      
     <div class="card  w-80 mt-5  shadow-2xl bg-base-100">

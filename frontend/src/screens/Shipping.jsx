@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import {shipping} from '../actions/cartActions.js'
 import Checkout from '../components/Checkout.jsx'
+import Header from '../components/Header.jsx'
 function Shipping() {
     const ship = useSelector(state => state.cart)
     const {shippingAddress} = ship
@@ -20,6 +21,7 @@ function Shipping() {
     }
   return (
       <>
+      <Header/>
       <Checkout step1 step2/>
     <div class="hero min-h-screen bg-base-200">
        
