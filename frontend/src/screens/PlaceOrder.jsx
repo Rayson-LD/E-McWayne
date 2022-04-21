@@ -1,17 +1,41 @@
-import {useState} from 'react'
+import {useEffect} from 'react'
 import { useNavigate,Link } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Checkout from '../components/Checkout.jsx'
 import Header from '../components/Header.jsx'
-
+import {createOrder} from '../actions/orderActions.js'
 function PlaceOrder() {
     const details = useSelector(state => state.cart)
+    const orderDetails = useSelector(state => state.order)
+    const {success,order} = orderDetails
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {shippingAddress,cartItems,paymentMethod} = details
      details.ItemsPrice = cartItems.reduce((acc,item)=>acc+item.qty*item.price,0).toFixed(2)
      details.shippingPrice = details.ItemsPrice<200? 70:0
      details.Tax = (details.ItemsPrice*0.25).toFixed(2)
      details.Total = (Number(details.ItemsPrice) + Number(details.shippingPrice) + Number(details.Tax)).toFixed(2)
   
+    useEffect(() => {
+      if(success)
+      {
+        navigate(`orders/${order.id}`)
+      }
+    
+    }, [success,order,navigate])
+    
+
+     const submitHandler = ()=>{
+      dispatch(createOrder({
+        shippingAddress,
+        orderItems:cartItems,
+        paymentMethod,
+        itemsPrice: details.ItemsPrice,
+        shippingPrice: details.shippingPrice,
+        taxPrice: details.Tax,
+        totalPrice: details.Total,
+      }))
+  }
   return (
       <>
       <Header/>
@@ -63,7 +87,7 @@ function PlaceOrder() {
           </tr>
         </tbody>
       </table>
-      <button class="btn btn-outline btn-success w-96" style={{borderRadius:0}}>PLACE ORDER</button>
+      <button class="btn btn-outline btn-success w-96" style={{borderRadius:0}} onClick={()=>submitHandler()}>PLACE ORDER</button>
   </div>
 </div>
 </>

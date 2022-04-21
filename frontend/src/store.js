@@ -3,6 +3,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { productListener } from './reducers/productReducers';
 import { productDetailsListener } from './reducers/productReducers';
+import { orders } from './reducers/orderReducer';
 import { cartListener } from './reducers/cartReducers';
 import { userListener,registerListener,updateListener,updateProfile } from './reducers/userReducers';
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
     register:registerListener,
     userProfile:updateListener,
     update:updateProfile,
+    order:orders,
 });
 
 //getting data from local storage

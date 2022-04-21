@@ -7,27 +7,27 @@ Orderrouter.post('/',protect,async(req,res)=>{
     try {
         const {
             shippingAddress,
-            cartItems,
+            orderItems,
             paymentMethod,
-            ItemsPrice,
+            itemsPrice,
             shippingPrice,
-            Tax,
-            Total,
+            taxPrice,
+            totalPrice,
 
         } = req.body;
        const order = new orderModel({
            user:req.user.id,
         shippingAddress,
-        orderItems:cartItems,
+        orderItems,
         paymentMethod,
-        itemsPrice:ItemsPrice,
+        itemsPrice,
         shippingPrice:shippingPrice,
-        taxPrice:Tax,
-        totalPrice:Total,
+        taxPrice,
+        totalPrice,
        })
         const createOrder = await order.save()
     } catch (error) {
-        res.status(400).json({message:"Order not Available"})
+        console.log(error)
     }
 
 })
