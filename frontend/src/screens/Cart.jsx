@@ -10,6 +10,8 @@ function Cart() {
   const navigate=useNavigate()
   const qty=1;
   const {cartItems} = cartList
+  const user = useSelector(state => state.userDetails)
+  const {userInfo} = user
   useEffect(() => {
     dispatch(addToCart(param.id,Number(qty)))
   }, [dispatch,param])
@@ -18,7 +20,14 @@ function Cart() {
     dispatch(removeFromCart(id))
   }
   const checkout = ()=>{
-    navigate('/login?redirect=shipping')
+    if(userInfo)
+    {
+      navigate('/shipping')
+    }
+    else{
+      navigate('/login')
+    }
+    
   }
   return (
     <>

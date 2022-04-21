@@ -1,4 +1,4 @@
-export const cartListener = (state ={cartItems:[]},action)=>{
+export const cartListener = (state ={cartItems:[],shippingAddress:{}},action)=>{
     switch(action.type)
     {
         case 'CART_ADD_ITEM' :
@@ -20,6 +20,11 @@ export const cartListener = (state ={cartItems:[]},action)=>{
                 ...state,
                 cartItems:state.cartItems.filter(x=>x.product !== action.payload),
             }
+        case 'CART_SAVE_SHIPPING_ADDRESS' :
+                return {
+                    ...state,
+                    shippingAddress:action.payload,
+                }
         default:
             return state
     }

@@ -6,6 +6,7 @@ import Profile from './screens/Profile';
 import Cart from './screens/Cart';
 import Login from './screens/Login';
 import Register from './screens/Register';
+import Shipping from './screens/Shipping';
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
         <Route path='/cart/pid=:id' element={<Cart/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
+        <Route path='/shipping' element={<Shipping/>}/>
       </Routes>
     </Router>
     </>
