@@ -2,6 +2,7 @@ import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import {shipping} from '../actions/cartActions.js'
+import Checkout from '../components/Checkout.jsx'
 function Shipping() {
     const ship = useSelector(state => state.cart)
     const {shippingAddress} = ship
@@ -19,6 +20,7 @@ function Shipping() {
     }
   return (
       <>
+      <Checkout step1 step2/>
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">
