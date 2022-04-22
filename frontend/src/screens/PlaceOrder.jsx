@@ -19,7 +19,7 @@ function PlaceOrder() {
     useEffect(() => {
       if(success)
       {
-        navigate(`orders/${order.id}`)
+        navigate(`orders/${order._id}`)
       }
     
     }, [success,order,navigate])
@@ -35,6 +35,7 @@ function PlaceOrder() {
         taxPrice: details.Tax,
         totalPrice: details.Total,
       }))
+      
   }
   return (
       <>
