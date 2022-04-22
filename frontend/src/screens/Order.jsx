@@ -26,12 +26,12 @@ function Order() {
         <>
       <Header/>
     <div class="flex flex-col w-full lg:flex-row mt-3 mb-3">
-  <div class="grid flex-grow  card bg-ghost rounded-box place-items-center">
-    <h1 class='text-3xl mt-10'>ORDER ID:{order._id}</h1>
+  <div class="grid flex-grow  card bg-ghost rounded-box place-items-left ml-3">
+    <h1 class='text-3xl mt-10'>ORDER ID: {order._id}</h1>
     <h1 class='text-3xl mt-10'>ORDER DETAILS</h1>
     <hr width='30%'/>
     <p class=' mt-3 '>Name : {userInfo.name}</p>
-    <p>Email :<a href={`mailto: ${userInfo.email}`}>{userInfo.email}</a></p>
+    <p class=' mt-3 '>Email :<a href={`mailto: ${userInfo.email}`}>{userInfo.email}</a></p>
     <p class=' mt-3 '>Address : {order.shippingAddress.Address}, {order.shippingAddress.City}, {order.shippingAddress.Country} - {order.shippingAddress.Pin}</p> 
     {order.isPaid ? (
                 <Message color='alert-success' error={`Paid on ${order.paidAt}`}/>
@@ -62,7 +62,7 @@ function Order() {
       </table>
     </div> 
   <div class="divider lg:divider-horizontal"></div> 
-  <div class="grid flex-grow  card bg-ghost rounded-box place-items-center">
+  <div class="grid flex-grow h-80 card bg-ghost rounded-box place-items-center">
   <h1 class='text-3xl mt-3'>PRICE SUMMARY</h1>
     <hr width='75%'/>
     <table class="table w-full  mt-3 text-center flex place-items-center">

@@ -27,3 +27,20 @@ export const getOrders = (state ={loading:true,orderItems:[], shippingAddress:{}
     }
 
 }
+
+export const getPayment = (state ={},action)=>{
+    switch(action.type)
+    {
+        case 'ORDER_PAY_REQUEST' :
+            return {loading:true}
+        case 'ORDER_PAY_SUCCESS' :
+            return {success:true}
+        case 'ORDER_PAY_FAIL' :
+            return {loading:false,error:action.payload}
+        case 'ORDER_PAY_RESET' :
+            return {}
+        default:
+            return state
+    }
+
+}

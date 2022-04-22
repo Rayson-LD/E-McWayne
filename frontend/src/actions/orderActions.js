@@ -64,3 +64,36 @@ export const getOrder = (id) => async(dispatch,getState)=>{
     
 
 }
+
+//@desc : put payemnt details by id frm paypal
+export const putPayment = (id,paymentResult) => async(dispatch,getState)=>{
+    try {
+    //request
+    dispatch({
+        type:'ORDER_PAY_REQUEST'})
+    const {userDetails:{userInfo}} =  getState()
+    //success
+        //passing the headers for auth     
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+
+        //getting the data
+     await axios.put(`/api/orders/${id}/pay`,paymentResult,config)
+   
+    dispatch({
+        type:'ORDER_PAY_SUCCESS',
+       
+    })
+    } catch (error) {
+        dispatch({type:'ORDER_PAY_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+    
+    
+
+}
