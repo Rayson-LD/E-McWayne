@@ -1,8 +1,9 @@
 import express from "express";
 import Order from '../models/orderModel.js'
 import { protect } from "../middleware/authMiddleware.js";
+import axios from "axios";
 const Orderrouter = express.Router()
-//@desc - router for getting products from mongoose product model as all products or single product
+//@desc - router for adding order from front end to mongoose db 
 Orderrouter.post('/',protect,async(req,res)=>{
     
         const {
@@ -34,5 +35,19 @@ Orderrouter.post('/',protect,async(req,res)=>{
             res.status(201).json(createOrder)
         }
     
+})
+
+//@desc - router for adding order from front end to mongoose db 
+Orderrouter.get('/:id',protect,async(req,res)=>{
+    
+   const order = await Order.findById(req.params.id).populate('user', 'name email')
+   if(order)
+   {
+       res.json(order)
+   }
+   else{
+       res.status(400).json({message:'Orders No Found'})
+   }
+
 })
 export default Orderrouter
