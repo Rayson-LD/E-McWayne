@@ -9,6 +9,7 @@ import Register from './screens/Register';
 import Shipping from './screens/Shipping';
 import Payment from './screens/Payment';
 import PlaceOrder from './screens/PlaceOrder';
+import Order from './screens/Order';
 function App() {
   return (
     <>
@@ -23,6 +24,7 @@ function App() {
         <Route path='/shipping' element={<Shipping/>}/>
         <Route path='/payment' element={<Payment/>}/>
         <Route path='/placeOrder' element={<PlaceOrder/>}/>
+        <Route path='/orders/:id' element={<Order/>}/>
       </Routes>
     </Router>
     </>

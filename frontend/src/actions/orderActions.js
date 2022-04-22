@@ -49,7 +49,7 @@ export const getOrder = (id) => async(dispatch,getState)=>{
         }
 
         //getting the data
-    const {data} = await axios.post(`/api/orders/${id}`,config)
+    const {data} = await axios.get(`/api/orders/${id}`,config)
    
     dispatch({
         type:'ORDER_DETAILS_SUCCESS',

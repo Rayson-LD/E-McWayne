@@ -40,7 +40,7 @@ Orderrouter.post('/',protect,async(req,res)=>{
 //@desc - router for adding order from front end to mongoose db 
 Orderrouter.get('/:id',protect,async(req,res)=>{
     
-   const order = await Order.findById(req.params.id).populate('user', 'name email')
+   const order = await Order.findById(req.params.id)
    if(order)
    {
        res.json(order)

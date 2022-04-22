@@ -19,7 +19,7 @@ function PlaceOrder() {
     useEffect(() => {
       if(success)
       {
-        navigate(`orders/${order._id}`)
+        navigate(`/orders/${order._id}`)
       }
     
     }, [success,order,navigate])

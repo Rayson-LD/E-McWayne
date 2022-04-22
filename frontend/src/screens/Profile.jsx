@@ -52,9 +52,9 @@ function Profile() {
        {loading&&<Loader skeletons={1} w={'w-full'} h={'h-96'}/>}
 
        { error && 
-        <Message error={error} color={'error'}/>}
+        <Message error={error} color={'alert-error'}/>}
         { message && 
-        <Message error={message} color={'alert-error'}/>}
+        <Message error={message} color={'alert-warning'}/>}
         { success && 
         <Message error={'Profile Updated'} color={'alert-success'}/>}
     <div class="hero min-h-screen bg-base-200">
