@@ -50,4 +50,27 @@ Orderrouter.get('/:id',protect,async(req,res)=>{
    }
 
 })
+
+//@desc - router for adding payment info from payment page to mongoose db 
+Orderrouter.put('/:id/pay',protect,async(req,res)=>{
+    
+    const order = await Order.findById(req.params.id)
+    if(order)
+    {
+        order.isPaid = true
+        order.paidAt=Date.now()
+        order.paymentResult= {
+            id: req.body.id,
+            status: req.body.status,
+            update_time: req.body.update_time,
+            email_address: req.body.payer.email_address,
+          }
+          const updatePayment = await order.save()
+          res.json(updatePayment)
+    }
+    else{
+        res.status(400).json({message:'Payment was not successfull. Check your Details'})
+    }
+ 
+ })
 export default Orderrouter
