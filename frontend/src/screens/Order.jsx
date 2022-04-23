@@ -19,19 +19,20 @@ function Order() {
     const params = useParams()
     const id = params.id
     useEffect(() => {
+      console.log(order)
       const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal')
-      console.log(clientId)
+      const { data } = await axios.get('/api/config/paypal')
+     
       const script = document.createElement('script')
       script.type = 'text/javascript'
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
       script.async = true
       script.onload = () => {
         setSDKReady(true)
       }
       document.body.appendChild(script)
     }
-    addPayPalScript()
+    
         if(!order || order._id !== id || successPay){
           dispatch({type:'ORDER_PAY_RESET'})
             dispatch(getOrder(id))
@@ -47,7 +48,6 @@ function Order() {
       
     }, [dispatch,id,order,successPay])
     const successPaymentHandler = (paymentResult) =>{
-      console.log(paymentResult)
       dispatch(putPayment(id,paymentResult))
     }
   return loading?(<Loader skeletons={2} w={'w-full'} h={'h-96'}/>):error?(<Message error={error} color={'alert-error'}/>):(
@@ -64,7 +64,7 @@ function Order() {
     {order.isPaid ? (
                 <Message color='alert-success' error={`Paid on ${order.paidAt}`}/>
               ) : (
-                <Message color='alert-error' error='Not Paid'/>
+                <Message color='alert-error' error={`${order.isPaid}`}/>
               )}
     <h1 class='text-3xl mt-10'>PAYMENT BY</h1>
     <hr width='25%'/>
@@ -118,7 +118,7 @@ function Order() {
         <PayPalButton
         amount={order.totalPrice}
         onSuccess={successPaymentHandler}
-        //options={{ currency: "INR"}} add?currency=INR for indian currency bt paypal doesnot support INR at present
+        
       />
       )}
       
