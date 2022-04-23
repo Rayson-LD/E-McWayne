@@ -1,27 +1,55 @@
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
 import { useParams,Link } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Header from '../components/Header.jsx'
 import Loader from '../components/Loader.jsx'
 import Message from '../components/Message.jsx'
-import {getOrder} from '../actions/orderActions.js'
+import {getOrder,putPayment} from '../actions/orderActions.js'
+import { PayPalButton } from 'react-paypal-button-v2'
+import axios from 'axios'
 function Order() {
     const orderDetails = useSelector(state => state.order)
     const userDetails = useSelector(state => state.userDetails)
+    const payment = useSelector(state => state.payment)
+    const [SDKReady, setSDKReady] = useState(false)
     const {userInfo} = userDetails
     const {order,loading,error} = orderDetails
+    const {loadingPay,successPay} = payment
     const dispatch = useDispatch()
     const params = useParams()
     const id = params.id
-    console.log(order)
     useEffect(() => {
-        if(!order || order._id !== id){
+      const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal')
+      console.log(clientId)
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.async = true
+      script.onload = () => {
+        setSDKReady(true)
+      }
+      document.body.appendChild(script)
+    }
+    addPayPalScript()
+        if(!order || order._id !== id || successPay){
+          dispatch({type:'ORDER_PAY_RESET'})
             dispatch(getOrder(id))
         }
+        else if(!order.isPaid)
+        {
+          if (!window.paypal) {
+            addPayPalScript()
+          } else {
+            setSDKReady(true)
+          }
+        }
       
-    }, [dispatch,id,order])
-    
-    
+    }, [dispatch,id,order,successPay])
+    const successPaymentHandler = (paymentResult) =>{
+      console.log(paymentResult)
+      dispatch(putPayment(id,paymentResult))
+    }
   return loading?(<Loader skeletons={2} w={'w-full'} h={'h-96'}/>):error?(<Message error={error} color={'alert-error'}/>):(
         <>
       <Header/>
@@ -62,7 +90,7 @@ function Order() {
       </table>
     </div> 
   <div class="divider lg:divider-horizontal"></div> 
-  <div class="grid flex-grow h-80 card bg-ghost rounded-box place-items-center">
+  <div class="grid flex-grow h-full card bg-ghost rounded-box place-items-center">
   <h1 class='text-3xl mt-3'>PRICE SUMMARY</h1>
     <hr width='75%'/>
     <table class="table w-full  mt-3 text-center flex place-items-center">
@@ -85,7 +113,15 @@ function Order() {
           </tr>
         </tbody>
       </table>
-     
+      {loadingPay&&<Loader/>}
+      {!SDKReady?(<Loader/>):(
+        <PayPalButton
+        amount={order.totalPrice}
+        onSuccess={successPaymentHandler}
+        //options={{ currency: "INR"}} add?currency=INR for indian currency bt paypal doesnot support INR at present
+      />
+      )}
+      
   </div>
 </div>
 </>
