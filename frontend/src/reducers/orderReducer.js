@@ -34,7 +34,7 @@ export const getPayment = (state ={},action)=>{
         case 'ORDER_PAY_REQUEST' :
             return {loadingPay:true}
         case 'ORDER_PAY_SUCCESS' :
-            return {successPay:true,loadingPay:false}
+            return {successPay:true,loadingPay:false,pay:action.payload}
         case 'ORDER_PAY_FAIL' :
             return {loadingPay:false,error:action.payload}
         case 'ORDER_PAY_RESET' :

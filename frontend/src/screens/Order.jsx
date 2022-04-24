@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react'
-import { useParams,Link } from 'react-router-dom'
+import { useParams,Link,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Header from '../components/Header.jsx'
 import Loader from '../components/Loader.jsx'
@@ -11,15 +11,17 @@ function Order() {
     const orderDetails = useSelector(state => state.order)
     const userDetails = useSelector(state => state.userDetails)
     const payment = useSelector(state => state.payment)
+    const navigate = useNavigate()
     const [SDKReady, setSDKReady] = useState(false)
     const {userInfo} = userDetails
     const {order,loading,error} = orderDetails
-    const {loadingPay,successPay} = payment
+    const {loadingPay,successPay,pay} = payment
+
     const dispatch = useDispatch()
     const params = useParams()
     const id = params.id
     useEffect(() => {
-      console.log(order)
+      
       const addPayPalScript = async () => {
       const { data } = await axios.get('/api/config/paypal')
      
@@ -35,7 +37,7 @@ function Order() {
     
         if(!order || order._id !== id || successPay){
           dispatch({type:'ORDER_PAY_RESET'})
-            dispatch(getOrder(id))
+          dispatch(getOrder(id))  
         }
         else if(!order.isPaid)
         {
@@ -49,6 +51,8 @@ function Order() {
     }, [dispatch,id,order,successPay])
     const successPaymentHandler = (paymentResult) =>{
       dispatch(putPayment(id,paymentResult))
+      navigate(`/order/s/${id}/pay=success`)
+      
     }
   return loading?(<Loader skeletons={2} w={'w-full'} h={'h-96'}/>):error?(<Message error={error} color={'alert-error'}/>):(
         <>

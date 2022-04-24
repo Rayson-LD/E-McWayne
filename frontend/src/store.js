@@ -17,6 +17,7 @@ const reducer = combineReducers({
     order:orders,
     orderDetails:getOrders,
     payment:getPayment,
+
 });
 
 //getting data from local storage
