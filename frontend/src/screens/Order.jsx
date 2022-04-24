@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from'react-redux'
 import Header from '../components/Header.jsx'
 import Loader from '../components/Loader.jsx'
 import Message from '../components/Message.jsx'
-import {getOrder,putPayment} from '../actions/orderActions.js'
+import {putPayment} from '../actions/orderActions.js'
 import { PayPalButton } from 'react-paypal-button-v2'
 import axios from 'axios'
 function Order() {
@@ -15,7 +15,7 @@ function Order() {
     const [SDKReady, setSDKReady] = useState(false)
     const {userInfo} = userDetails
     const {order,loading,error} = orderDetails
-    const {loadingPay,successPay,pay} = payment
+    const {loadingPay,successPay} = payment
 
     const dispatch = useDispatch()
     const params = useParams()
@@ -34,12 +34,7 @@ function Order() {
       }
       document.body.appendChild(script)
     }
-    
-        if(!order || order._id !== id || successPay){
-          dispatch({type:'ORDER_PAY_RESET'})
-          dispatch(getOrder(id))  
-        }
-        else if(!order.isPaid)
+         if(!order.isPaid)
         {
           if (!window.paypal) {
             addPayPalScript()
@@ -51,8 +46,8 @@ function Order() {
     }, [dispatch,id,order,successPay])
     const successPaymentHandler = (paymentResult) =>{
       dispatch(putPayment(id,paymentResult))
-      navigate(`/order/s/${id}/pay=success`)
-      
+      navigate(`/orders/${id}/pay=success`)
+     
     }
   return loading?(<Loader skeletons={2} w={'w-full'} h={'h-96'}/>):error?(<Message error={error} color={'alert-error'}/>):(
         <>
@@ -65,19 +60,9 @@ function Order() {
     <p class=' mt-3 '>Name : {userInfo.name}</p>
     <p class=' mt-3 '>Email :<a href={`mailto: ${userInfo.email}`}>{userInfo.email}</a></p>
     <p class=' mt-3 '>Address : {order.shippingAddress.Address}, {order.shippingAddress.City}, {order.shippingAddress.Country} - {order.shippingAddress.Pin}</p> 
-    {order.isPaid ? (
-                <Message color='alert-success' error={`Paid on ${order.paidAt}`}/>
-              ) : (
-                <Message color='alert-error' error={`${order.isPaid}`}/>
-              )}
     <h1 class='text-3xl mt-10'>PAYMENT BY</h1>
     <hr width='25%'/>
     <p class=' mt-3 '>{order.paymentMethod}</p>
-    {order.isDelivered ? (
-                <Message color='alert-success' error={`Delivered on ${order.deliveredAt}`}/>
-              ) : (
-                <Message color='alert-error' error='Not Delivered'/>
-              )}
     <h1 class='text-3xl mt-10'>ORDER ITEMS</h1>
     <hr width='25%'/>
     <table class="table w-full  mt-3">

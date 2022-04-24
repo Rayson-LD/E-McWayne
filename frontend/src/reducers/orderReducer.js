@@ -28,11 +28,11 @@ export const getOrders = (state ={loading:true,orderItems:[], shippingAddress:{}
 
 }
 
-export const getPayment = (state ={},action)=>{
+export const getPayment = (state ={loadingPay:false,orderItems:[], shippingAddress:{}},action)=>{
     switch(action.type)
     {
         case 'ORDER_PAY_REQUEST' :
-            return {loadingPay:true}
+            return {...state,loadingPay:true}
         case 'ORDER_PAY_SUCCESS' :
             return {successPay:true,loadingPay:false,pay:action.payload}
         case 'ORDER_PAY_FAIL' :

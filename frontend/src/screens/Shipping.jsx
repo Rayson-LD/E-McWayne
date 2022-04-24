@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import {shipping} from '../actions/cartActions.js'
@@ -14,10 +14,13 @@ function Shipping() {
     
     const dispatch = useDispatch()
     const navigate  = useNavigate()
+  
+    
     const submitHandler = ()=>{
        
         dispatch(shipping({Address,City,Pin,Country})) 
         navigate('/payment')
+        window.location.reload()
     }
   return (
       <>

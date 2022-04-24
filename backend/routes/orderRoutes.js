@@ -66,7 +66,7 @@ Orderrouter.put('/:id/pay',protect,async(req,res)=>{
             email_address: req.body.payer.email_address,
           }
           const updatePayment = await order.save()
-          return res.json(updatePayment)
+          return res.status(201).json(updatePayment)
     }
     else{
         res.status(400).json({message:'Payment was not successfull. Check your Details'})
