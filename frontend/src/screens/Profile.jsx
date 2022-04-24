@@ -1,9 +1,10 @@
 import {useState,useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
+import { listMyOrders } from '../actions/orderActions'
 function Profile() {
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
@@ -23,7 +24,11 @@ function Profile() {
     //to check if update is successfull
     const update = useSelector(state => state.update)
     const {success} = update
+
+    const orderDetails = useSelector(state => state.orderList)
+    const {loading:loadOrder,error:errorOrder,orders} = orderDetails
     useEffect(() => {
+      dispatch(listMyOrders())
         if(!userInfo)
         {
             navigate('/login')  
@@ -57,6 +62,7 @@ function Profile() {
         <Message error={message} color={'alert-warning'}/>}
         { success && 
         <Message error={'Profile Updated'} color={'alert-success'}/>}
+        
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">
@@ -99,8 +105,58 @@ function Profile() {
   
  
 </div>
-
-       
+<h1 class='text-3xl'>MY ORDERS</h1>
+{loadOrder ? (
+          <Loader skeletons={2} w={'w-full'} h={'h-96'}/>
+        ) : errorOrder ? (
+          <Message error={errorOrder} color={'alert-error'}/>
+        ) :(
+<div class="overflow-x-auto">
+  <table class="table w-full">
+    <thead>
+      <tr>
+      <th>ID</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAYMENT</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {orders.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>{order.paymentMethod}</td>
+                  <td>
+                    {order.isPaid ? (
+                      order.paidAt.substring(0, 10)
+                    ) : (
+                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      order.deliveredAt.substring(0, 10)
+                    ) : (
+                      <p>Not Delivered</p>
+                    )}
+                  </td>
+                  <td>
+                    <Link to={`/order/${order._id}`}>
+                    <button class="btn btn-error" >X</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+     
+    </tbody>
+  </table>
+</div>  
+        )}
 </>
   )
 }

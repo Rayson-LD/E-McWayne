@@ -98,3 +98,38 @@ export const putPayment = (id,paymentResult) => async(dispatch,getState)=>{
     
 
 }
+
+
+//@desc : put payemnt details by id frm paypal
+export const listMyOrders = () => async(dispatch,getState)=>{
+    try {
+    //request
+    dispatch({
+        type:'ORDER_MY_LIST_REQUEST'})
+    const {userDetails:{userInfo}} =  getState()
+    //success
+        //passing the headers for auth     
+        const config = {
+            headers:{
+               
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+
+        //getting the data
+    const {data}=  await axios.get(`/api/orders/myorders`,config)
+ 
+    dispatch({
+        type:'ORDER_MY_LIST_SUCCESS',
+       payload:data
+       
+    })
+    } catch (error) {
+        dispatch({type:'ORDER_MY_LIST_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+    
+    
+
+}

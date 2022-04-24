@@ -36,7 +36,15 @@ Orderrouter.post('/',protect,async(req,res)=>{
         }
     
 })
+ //@desc - router for getting orders list from mongoose db 
+ Orderrouter.get('/myorders',protect,async(req,res)=>{
+    
+    const orders = await Order.find({user: req.user.id})
+           
+           res.json(orders)
 
+ 
+ })
 //@desc - router for adding order from front end to mongoose db 
 Orderrouter.get('/:id',protect,async(req,res)=>{
     
@@ -73,4 +81,6 @@ Orderrouter.put('/:id/pay',protect,async(req,res)=>{
     }
  
  })
+
+
 export default Orderrouter
