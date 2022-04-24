@@ -5,6 +5,7 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
 import { listMyOrders } from '../actions/orderActions'
+import {FaWindowClose} from 'react-icons/fa'
 function Profile() {
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
@@ -135,7 +136,7 @@ function Profile() {
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)
                     ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
+                      <FaWindowClose color='red' size='25'/>
                     )}
                   </td>
                   <td>
@@ -146,8 +147,8 @@ function Profile() {
                     )}
                   </td>
                   <td>
-                    <Link to={`/order/${order._id}`}>
-                    <button class="btn btn-error" >X</button>
+                    <Link to={`/orders/${order._id}`}>
+                    <button class="btn btn-primary" >DETAILS</button>
                     </Link>
                   </td>
                 </tr>
