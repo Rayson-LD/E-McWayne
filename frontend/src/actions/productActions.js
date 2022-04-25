@@ -29,6 +29,33 @@ export const listProductDetails = (id) => async(dispatch)=>{
         //sending data to reducer
         dispatch({type:'PRODUCT_DETAIL_SUCCESS',payload:data});
     } catch (error) {
-        dispatch({type:'PRODUCT_DETAIL_FAIL',payload:error.message});
+        dispatch({type:'PRODUCT_DETAIL_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+}
+
+export const reviewList = (id,review) => async(dispatch,getState)=>{
+    try {
+        //sending the request
+        dispatch({type:'PRODUCT_REVIEW_REQUEST'})
+        const {userDetails:{userInfo}} =  getState()
+    //success
+        //passing the headers for auth     
+        const config = {
+            headers:{
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${userInfo.token}`
+            }
+        }
+        //getting the data
+        await axios.post(`/api/products/${id}/reviews`,review,config);
+        
+        //sending data to reducer
+        dispatch({type:'PRODUCT_REVIEW_SUCCESS'});
+    } catch (error) {
+        dispatch({type:'PRODUCT_REVIEW_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
     }
 }

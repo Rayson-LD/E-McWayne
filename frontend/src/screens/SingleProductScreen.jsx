@@ -1,20 +1,47 @@
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
 import { useParams, Link} from 'react-router-dom'
 import Header from '../components/Header'
 import Rating from '../components/Rating'
+import Message from '../components/Message'
 import {useSelector,useDispatch} from'react-redux'
-import { listProductDetails } from '../actions/productActions'
+import { listProductDetails,reviewList } from '../actions/productActions'
 function SingleProductScreen() {
   const param = useParams()
   const dispatch = useDispatch()
-  
+  const [rating, setrating] = useState(0)
+  const [comment, setcomment] = useState('')
   const productList = useSelector(state => state.productDetails)
   const {product} = productList
-  useEffect(() => {
-    dispatch(listProductDetails(param.id))
-  }, [dispatch,param.id])
 
- 
+  const userDetails = useSelector(state => state.userDetails)
+  const {userInfo} = userDetails
+
+  const reviewDetails = useSelector(state => state.reviews)
+  const {success} = reviewDetails
+  useEffect(() => {
+    if(success)
+    {
+      setrating(0)
+      setcomment('')
+      dispatch({type:'PRODUCT_REVIEW_RESET'})
+    }
+    dispatch(listProductDetails(param.id))
+  }, [dispatch,param.id,success])
+
+  const Change = (e) =>{
+
+    if(e.target.id === 'comment')
+    {
+        setcomment(e.target.value)
+    }
+    if(e.target.id === 'rating')
+    {
+        setrating(e.target.value)
+    }
+}
+const submitHandler = () =>{
+  dispatch(reviewList(param.id,{rating,comment}))
+}
   return (
     <div>
       <Header/>
@@ -51,6 +78,58 @@ function SingleProductScreen() {
           <h1 className='text-3xl text-bold text-error pt-5'>{`${product.countInStock>0?`Only ${product.countInStock} Left in Stocks`:"Item Coming Soon"}`} </h1>
           </div>
       </div>
+      <h1 class='text-3xl mt-3 text-center'>WRITE A REVIEW</h1>
+      {userInfo?( <div className="hero-content flex-col  m-auto  border-2 border-opposite">
+        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100" style={{borderRadius:0}}>
+      <div className="card-body">
+        <div className="form-control">
+            <label className="label">
+            <span className="label-text">Your Message</span>
+            </label> 
+            <textarea className="textarea textarea-bordered h-24" id="comment" value={comment} onChange={Change} placeholder="Message" required></textarea>
+
+        </div>
+        <div className="form-control">
+            <label className="label">
+            <span className="label-text">Give Your Rating</span>
+            </label> 
+            <div className="rating gap-1">
+                <input type="radio" id="rating" value="1" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
+                <input type="radio" id="rating" value="2" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
+                <input type="radio" id="rating" value="3" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
+                <input type="radio" id="rating"  value="4" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
+                <input type="radio" id="rating" value="5"  onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
+            </div>
+        </div>
+       
+        <div className="form-control mt-6">
+        <button class="btn btn-primary" onClick={()=>submitHandler()}>Write a Review</button>
+        </div>
+      </div>
+      </div>
+        </div>):(
+          <div class="alert alert-error shadow-lg">
+          <div>
+            <span>Please <Link to = '/login'>Login</Link> to Sign Up</span>
+          </div>
+        </div>
+        )}
+       
+
+      <h1 class='text-3xl mt-3'>REVIEWS</h1>
+      {product.reviews.length === 0 &&<Message error='No Reviews Yet' color={'alert-info'}/>}
+      {product.reviews.map((r)=>(
+        <div class="card w-96 bg-base-100 shadow-xl" key={r.id}>
+        <div class="card-body">
+          <h2 class="card-title">{r.name}</h2>
+          <p>{r.createdAt.substring(0,10)}</p>
+          <p>{r.comment}</p>
+          <div class="card-actions justify-end">
+          <p>{r.rating}</p>
+          </div>
+        </div>
+      </div>
+      ))}
     </div>
   )
 }

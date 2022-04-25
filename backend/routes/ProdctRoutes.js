@@ -56,7 +56,7 @@ Productrouter.post('/:id/reviews',protect,async(req,res)=>{
             
         }
     } catch (error) {
-        console.log(error)
+        res.status(400).json('Not Found')
     }
   
 })
