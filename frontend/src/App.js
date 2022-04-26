@@ -28,6 +28,7 @@ function App() {
         <Route path='/placeOrder' element={<PlaceOrder/>}/>
         <Route path='/orders/:id' element={<Order/>}/>
         <Route path='/orders/:id/pay=success' element={<Delivery/>}/>
+        <Route path='/search/:Keyword' element={<Home/>}/>
         <Route path='/search/:Keyword/page/:pageNumber' element={<Home/>}/>
         <Route path='/page/:pageNumber' element={<Home/>}/>
       </Routes>

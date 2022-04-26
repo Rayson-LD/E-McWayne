@@ -11,7 +11,7 @@ import Pagination from '../components/Pagination'
 function Home() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
-  const {loading,error,products} = productList
+  const {loading,error,products,page,pages} = productList
   const params = useParams()
   const Keyword = params.Keyword
   const pageNumber = params.pageNumber || 1
@@ -35,6 +35,7 @@ function Home() {
                     <ProductCard key={product._id} name={product.name} desc={product.description} img={product.image} rating={product.rating} reviews={product.numReviews} id={product._id}/>
           ))} 
         </div>
+        <Pagination page={page} pages={pages} keyword={Keyword}/>
         </div>
 }
         <Footer/>

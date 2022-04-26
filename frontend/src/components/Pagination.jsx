@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Pagination({page,pages,keyword}) {
   return pages > 1 && (
+      <div class="max-w-md">
     <div class="btn-group">
         {
             [...Array(pages).keys()].map(x=>(
@@ -12,6 +13,7 @@ function Pagination({page,pages,keyword}) {
                 
             ))
         }
+</div>
 </div>
   )
 }
