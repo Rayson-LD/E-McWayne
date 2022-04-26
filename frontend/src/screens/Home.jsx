@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import { useParams } from 'react-router'
 import Footer from '../components/Footer'
 import {useSelector,useDispatch} from'react-redux'
 import Header from '../components/Header'
@@ -10,14 +11,16 @@ function Home() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
   const {loading,error,products} = productList
-  
+  const params = useParams()
+  const Keyword = params.Keyword
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(Keyword))
+  }, [dispatch,Keyword])
   return (
     <div>
         <Header/>
         <h1 className='text-3xl text-bold'>Our Latest Products</h1>
+        {products.length === 0 && <Message error='No Such products' color='alert-info'/>}
         {loading?<div className="overflow-x-auto">
         <div className="grid grid-rows-1 grid-flow-col gap-4">
           <Loader skeletons={6} w={'w-80'} h={'h-60'}/>

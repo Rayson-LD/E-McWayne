@@ -4,8 +4,14 @@ import { protect } from "../middleware/authMiddleware.js";
 const Productrouter = express.Router()
 //@desc - router for getting products from mongoose product model as all products or single product
 Productrouter.get('/',async(req,res)=>{
+    const keyword = req.query.keyword?{
+        name:{
+            $regex:req.query.keyword, //regression shud give d product with lim inputs
+            $options:'i' //case sensitive
+         }
+    }:{}
     try {
-        const p = await Product.find({});
+        const p = await Product.find({...keyword});
        
         res.json(p)
     } catch (error) {

@@ -1,9 +1,12 @@
 import React from 'react'
+import { useState } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import {userLogout} from '../actions/userActions.js'
+import {FaSearch} from 'react-icons/fa'
 function Header() {
   const dispatch = useDispatch()
+  const [Keyword, setKeyword] = useState('')
   const userLogin = useSelector(state => state.userDetails)
   const logouthandler = ()=>{
     dispatch(userLogout())
@@ -16,6 +19,16 @@ function Header() {
     navigate('/profile')
     window.location.reload()
   }
+  const submitHandler = ()=>{
+    if(Keyword.trim())
+    {
+      navigate(`/search/${Keyword}`)
+    }
+    else{
+      navigate('/')
+    }
+    
+  }
   return (
     <div>
         <div className="navbar bg-base-300">
@@ -24,8 +37,10 @@ function Header() {
   </div>
   <div className="flex-none gap-2">
     <div className="form-control">
-      <input type="text" placeholder="Search" className="input input-bordered"/>
+      <input type="text" placeholder="Search" className="input input-bordered lg:w-80"  onChange={(e)=>setKeyword(e.target.value)}/>
+     
     </div>
+    <button className="btn btn-primary btn-ghost w-12" onClick={()=>submitHandler()}><FaSearch/></button>
     <div className="dropdown dropdown-end">
       <label tabIndex="0" className="btn btn-ghost btn-circle">
         <div className="indicator">
