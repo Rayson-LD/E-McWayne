@@ -7,15 +7,17 @@ import ProductCard from '../components/ProductCard'
 import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Pagination from '../components/Pagination'
 function Home() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
   const {loading,error,products} = productList
   const params = useParams()
   const Keyword = params.Keyword
+  const pageNumber = params.pageNumber || 1
   useEffect(() => {
-    dispatch(listProducts(Keyword))
-  }, [dispatch,Keyword])
+    dispatch(listProducts(Keyword,pageNumber))
+  }, [dispatch,Keyword,pageNumber])
   return (
     <div>
         <Header/>

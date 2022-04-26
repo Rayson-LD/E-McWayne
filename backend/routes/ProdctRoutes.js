@@ -4,6 +4,9 @@ import { protect } from "../middleware/authMiddleware.js";
 const Productrouter = express.Router()
 //@desc - router for getting products from mongoose product model as all products or single product
 Productrouter.get('/',async(req,res)=>{
+
+    const pageSize = 2
+    const page = Number(req.query.pageNumber) || 1
     const keyword = req.query.keyword?{
         name:{
             $regex:req.query.keyword, //regression shud give d product with lim inputs
@@ -11,9 +14,10 @@ Productrouter.get('/',async(req,res)=>{
          }
     }:{}
     try {
-        const p = await Product.find({...keyword});
+        const count = await Product.count({...keyword});
+        const p = await Product.find({...keyword}).limit(pageSize).skip(pageSize*(page-1));
        
-        res.json(p)
+        res.json({p,page,pages : Math.ceil(count/pageSize)})
     } catch (error) {
         res.status(400).json({message:"Products not available"})
     }
