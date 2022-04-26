@@ -1,17 +1,20 @@
 import {useState,useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate,useParams } from 'react-router-dom'
 import {useSelector,useDispatch} from'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
 import { listMyOrders } from '../actions/orderActions'
 import {FaWindowClose} from 'react-icons/fa'
+import Pagination from '../components/Pagination'
 function Profile() {
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
     const [ConfirmPassword, setConfirmPassword] = useState('')
     const [message, setmessage] = useState(null)
+    const params = useParams()
+    const pageNumber = params.pageNumber
     const dispatch = useDispatch()
     const navigate = useNavigate()
     //to check if user is logged in or not
@@ -27,9 +30,9 @@ function Profile() {
     const {success} = update
 
     const orderDetails = useSelector(state => state.orderList)
-    const {loading:loadOrder,error:errorOrder,orders} = orderDetails
+    const {loading:loadOrder,error:errorOrder,orders,page,pages} = orderDetails
     useEffect(() => {
-      dispatch(listMyOrders())
+      dispatch(listMyOrders(pageNumber))
         if(!userInfo)
         {
             navigate('/login')  
@@ -156,6 +159,16 @@ function Profile() {
      
     </tbody>
   </table>
+  <div class="btn-group">
+        {
+            [...Array(pages).keys()].map(x=>(
+                <Link key={x+1} to={ `/profile/page/${x+1}`}>
+                <button class="btn" disabled={x+1 === page}>{x+1}</button>
+                </Link>
+                
+            ))
+        }
+</div>
 </div>  
         )}
 </>

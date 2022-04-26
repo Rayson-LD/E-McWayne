@@ -101,7 +101,7 @@ export const putPayment = (id,paymentResult) => async(dispatch,getState)=>{
 
 
 //@desc : put payemnt details by id frm paypal
-export const listMyOrders = () => async(dispatch,getState)=>{
+export const listMyOrders = (pageNumber = '') => async(dispatch,getState)=>{
     try {
     //request
     dispatch({
@@ -117,7 +117,7 @@ export const listMyOrders = () => async(dispatch,getState)=>{
         }
 
         //getting the data
-    const {data}=  await axios.get(`/api/orders/myorders`,config)
+    const {data}=  await axios.get(`/api/orders/myorders?pageNumber=${pageNumber}`,config)
  
     dispatch({
         type:'ORDER_MY_LIST_SUCCESS',

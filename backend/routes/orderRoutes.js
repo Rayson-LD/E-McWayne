@@ -38,10 +38,12 @@ Orderrouter.post('/',protect,async(req,res)=>{
 })
  //@desc - router for getting orders list from mongoose db 
  Orderrouter.get('/myorders',protect,async(req,res)=>{
-    
-    const orders = await Order.find({user: req.user.id})
+    const pageSize = 10
+    const page = Number(req.query.pageNumber) || 1
+    const count = await Order.count({user: req.user.id});
+    const orders = await Order.find({user: req.user.id}).limit(pageSize).skip(pageSize*(page-1));
            
-           res.json(orders)
+           res.json({orders,page,pages : Math.ceil(count/pageSize)})
 
  
  })

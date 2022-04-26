@@ -20,6 +20,7 @@ function App() {
         <Route path='/' element={<Home/>}/>
         <Route path='/product/pid=:id/item=:name' element={<SingleProductScreen/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile/page/:pageNumber' element={<Profile/>}/>
         <Route path='/cart/pid=:id' element={<Cart/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>

@@ -52,7 +52,7 @@ export const getOrdersList = (state ={orders:[]},action)=>{
         case 'ORDER_MY_LIST_REQUEST' :
             return {loading:true}
         case 'ORDER_MY_LIST_SUCCESS' :
-            return {success:true,loading:false,orders:action.payload}
+            return {success:true,loading:false,orders:action.payload.orders,page:action.payload.page,pages:action.payload.pages}
         case 'ORDER_MY_LIST_FAIL' :
             return {loading:false,error:action.payload}
         case 'ORDER_PAY_RESET' :
