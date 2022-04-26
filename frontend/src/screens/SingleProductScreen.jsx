@@ -5,10 +5,11 @@ import Rating from '../components/Rating'
 import Message from '../components/Message'
 import {useSelector,useDispatch} from'react-redux'
 import { listProductDetails,reviewList } from '../actions/productActions'
+
 function SingleProductScreen() {
   const param = useParams()
   const dispatch = useDispatch()
-  const [rating, setrating] = useState(0)
+  const [rating, setrating] = useState(0.5)
   const [comment, setcomment] = useState('')
   const productList = useSelector(state => state.productDetails)
   const {product} = productList
@@ -17,7 +18,7 @@ function SingleProductScreen() {
   const {userInfo} = userDetails
 
   const reviewDetails = useSelector(state => state.reviews)
-  const {success} = reviewDetails
+  const {success,error} = reviewDetails
   useEffect(() => {
     if(success)
     {
@@ -26,7 +27,7 @@ function SingleProductScreen() {
       dispatch({type:'PRODUCT_REVIEW_RESET'})
     }
     dispatch(listProductDetails(param.id))
-  }, [dispatch,param.id,success])
+  }, [dispatch,param,success])
 
   const Change = (e) =>{
 
@@ -79,6 +80,7 @@ const submitHandler = () =>{
           </div>
       </div>
       <h1 class='text-3xl mt-3 text-center'>WRITE A REVIEW</h1>
+      {error && <Message error={error} color='alert-error'/>}
       {userInfo?( <div className="hero-content flex-col  m-auto  border-2 border-opposite">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100" style={{borderRadius:0}}>
       <div className="card-body">
@@ -93,13 +95,19 @@ const submitHandler = () =>{
             <label className="label">
             <span className="label-text">Give Your Rating</span>
             </label> 
-            <div className="rating gap-1">
-                <input type="radio" id="rating" value="1" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
-                <input type="radio" id="rating" value="2" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
-                <input type="radio" id="rating" value="3" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
-                <input type="radio" id="rating"  value="4" onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
-                <input type="radio" id="rating" value="5"  onClick={Change} name="rating-3" className="mask mask-heart bg-red-400" />
-            </div>
+            <div className="rating rating-half">
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-1"  defaultChecked value='0.5'/>
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-2"   value='1' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"   className="mask mask-star bg-orange-400 mask-half-1"   value='1.5' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"    className="mask mask-star bg-orange-400 mask-half-2"   value='2' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"   className="mask mask-star bg-orange-400 mask-half-1"   value='2.5' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"   className="mask mask-star bg-orange-400 mask-half-2"   value='3' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-1"   value='3.5' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-2"   value='4' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-1"   value='4.5' onClick={Change}/>
+           <input type="radio" name="rating-10" id="rating"  className="mask mask-star bg-orange-400 mask-half-2"   value='5' onClick={Change}/>
+     </div>
+            
         </div>
        
         <div className="form-control mt-6">
@@ -125,7 +133,7 @@ const submitHandler = () =>{
           <p>{r.createdAt.substring(0,10)}</p>
           <p>{r.comment}</p>
           <div class="card-actions justify-end">
-          <p>{r.rating}</p>
+          <Rating rating={r.rating}/>
           </div>
         </div>
       </div>

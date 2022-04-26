@@ -38,9 +38,9 @@ Productrouter.post('/:id/reviews',protect,async(req,res)=>{
             const reviewed = await p.reviews.find(r => r.user.toString() === req.user.id.toString())
             if(reviewed)
             {
-                res.status(400).json('Product Already Reviewed')
+                 res.status(400).json({message:'Product Already Reviewed'})
             }
-     
+            else{
                 const review = {
                     name : req.user.name,
                     rating:Number(rating),
@@ -53,10 +53,12 @@ Productrouter.post('/:id/reviews',protect,async(req,res)=>{
                 p.rating = p.reviews.reduce((acc,item)=> item.rating+acc,0)/p.numReviews
                 await p.save()
                 res.status(201).json('Review Added')
+            }
+                
             
         }
     } catch (error) {
-        res.status(400).json('Not Found')
+        res.status(400).json({message:'Not Found'})
     }
   
 })
