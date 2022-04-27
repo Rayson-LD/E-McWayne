@@ -23,18 +23,25 @@ Productrouter.get('/',async(req,res)=>{
     }
 
 })
+Productrouter.get('/top',async(req,res)=>{
+    try {
+        const CarouselProducts = await Product.find({}).sort({rating: -1}).limit(3);
+       
+            res.json(CarouselProducts)
+    
+    } catch (error) {
+        res.status(400).json({message:"No Products , Will be back soon"})
+        console.log(error)
+    }
 
+})
 //single product
 Productrouter.get('/:id',async(req,res)=>{
     try {
-        const p = await Product.findById(req.params.id);
-       
-            res.json(p)
-        
-        
-            
+        const p = await Product.findById(req.params.id);  
+            res.json(p)    
     } catch (error) {
-        res.status(400).json({message:"Product not found"})
+        res.status(400).json({message:"Product not available"})
     }
 
 })
@@ -74,17 +81,5 @@ Productrouter.post('/:id/reviews',protect,async(req,res)=>{
 })
 
 //single product
-Productrouter.get('/top',async(req,res)=>{
-    try {
-        const CarouselProducts = await Product.find({}).sort({rating: -1}).limit(3);
-       
-            res.json(CarouselProducts)
-        
-        
-            
-    } catch (error) {
-        res.status(400).json({message:"No Products , Will be back soon"})
-    }
 
-})
 export default Productrouter

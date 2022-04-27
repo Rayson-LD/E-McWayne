@@ -7,6 +7,7 @@ import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
 import { listMyOrders } from '../actions/orderActions'
 import {FaWindowClose} from 'react-icons/fa'
 import Pagination from '../components/Pagination'
+import Header from '../components/Header'
 function Profile() {
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
@@ -66,7 +67,7 @@ function Profile() {
         <Message error={message} color={'alert-warning'}/>}
         { success && 
         <Message error={'Profile Updated'} color={'alert-success'}/>}
-        
+        <Header/>
     <div class="hero min-h-screen bg-base-200">
        
   <div class="hero-content flex-col lg:flex-row-reverse">
@@ -159,6 +160,7 @@ function Profile() {
      
     </tbody>
   </table>
+  <div class="flex justify-center my-3">
   <div class="btn-group">
         {
             [...Array(pages).keys()].map(x=>(
@@ -168,6 +170,7 @@ function Profile() {
                 
             ))
         }
+</div>
 </div>
 </div>  
         )}

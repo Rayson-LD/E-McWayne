@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Pagination({page,pages,keyword}) {
   return pages > 1 && (
-      <div class="max-w-md">
-    <div class="btn-group">
+      <div class="flex justify-center my-3">
+    <div class="btn-group ">
         {
             [...Array(pages).keys()].map(x=>(
                 <Link key={x+1} to={keyword? `/search/${keyword}/page/${x+1}`:`/page/${x+1}`}>
