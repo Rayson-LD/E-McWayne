@@ -2,7 +2,7 @@ import {createStore,combineReducers,applyMiddleware} from 'redux'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 import { productListener } from './reducers/productReducers';
-import { productDetailsListener,getReviewsListener } from './reducers/productReducers';
+import { productDetailsListener,getReviewsListener,getCarouselListener } from './reducers/productReducers';
 import { orders,getOrders, getPayment,getOrdersList } from './reducers/orderReducer';
 import { cartListener } from './reducers/cartReducers';
 import { userListener,registerListener,updateListener,updateProfile } from './reducers/userReducers';
@@ -19,6 +19,7 @@ const reducer = combineReducers({
     payment:getPayment,
     orderList:getOrdersList,
     reviews:getReviewsListener,
+    topOrders:getCarouselListener,
 });
 
 //getting data from local storage

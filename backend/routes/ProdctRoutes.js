@@ -72,4 +72,19 @@ Productrouter.post('/:id/reviews',protect,async(req,res)=>{
     }
   
 })
+
+//single product
+Productrouter.get('/top',async(req,res)=>{
+    try {
+        const CarouselProducts = await Product.find({}).sort({rating: -1}).limit(3);
+       
+            res.json(CarouselProducts)
+        
+        
+            
+    } catch (error) {
+        res.status(400).json({message:"No Products , Will be back soon"})
+    }
+
+})
 export default Productrouter

@@ -59,3 +59,20 @@ export const reviewList = (id,review) => async(dispatch,getState)=>{
         : error.message,});
     }
 }
+
+export const listTopProducts = () => async(dispatch)=>{
+    try {
+        //sending the request
+        dispatch({type:'PRODUCT_TOP_CAROUSEL_REQUEST'})
+        
+        //getting the data
+        const {data} = await axios.get(`/api/products/top`);
+        
+        //sending data to reducer
+        dispatch({type:'PRODUCT_TOP_CAROUSEL_SUCCESS',payload:data});
+    } catch (error) {
+        dispatch({type:'PRODUCT_TOP_CAROUSEL_FAIL',payload:error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,});
+    }
+}

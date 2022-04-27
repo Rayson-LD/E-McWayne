@@ -46,3 +46,19 @@ export const getReviewsListener = (
     }
 
 }
+
+export const getCarouselListener = (
+    state ={top:[]},action)=>{
+    switch(action.type)
+    {
+        case 'PRODUCT_TOP_CAROUSEL_REQUEST' :
+            return {loading:true,top:[]}
+        case 'PRODUCT_TOP_CAROUSEL_SUCCESS' :
+            return {loading:false,top:action.payload}
+        case 'PRODUCT_TOP_CAROUSEL_FAIL' :
+            return {loading:false,error:action.payload}
+        default:
+            return state
+    }
+
+}
