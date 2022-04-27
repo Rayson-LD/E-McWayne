@@ -3,6 +3,7 @@ import {useEffect} from 'react'
 import { useParams, Link,useNavigate} from 'react-router-dom'
 import {addToCart,removeFromCart} from '../actions/cartActions'
 import {FaTrash} from 'react-icons/fa'
+import Meta from '../components/Meta'
 function Cart() {
   const param = useParams()
   const dispatch = useDispatch()
@@ -31,6 +32,7 @@ function Cart() {
   }
   return (
     <>
+    <Meta title='Your Cart'/>
     <h1 class='text-5xl m-2 text-center'>Your Shopping Cart</h1>
     {cartItems.length === 0 ?(<h1>Nothing here</h1>):
     (

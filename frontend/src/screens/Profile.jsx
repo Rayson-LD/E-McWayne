@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import {getuserDetails,updateUserDetails} from '../actions/userActions.js'
 import { listMyOrders } from '../actions/orderActions'
 import {FaWindowClose} from 'react-icons/fa'
-import Pagination from '../components/Pagination'
+import Meta from '../components/Meta'
 import Header from '../components/Header'
 function Profile() {
     const [Name, setName] = useState('')
@@ -47,7 +47,7 @@ function Profile() {
               setEmail(user.email)
             }
         }
-    }, [userInfo,navigate,user,dispatch])
+    }, [userInfo,navigate,user,dispatch,pageNumber])
     const submitHandler = ()=>{
       if(Password === ConfirmPassword)
       {
@@ -67,6 +67,7 @@ function Profile() {
         <Message error={message} color={'alert-warning'}/>}
         { success && 
         <Message error={'Profile Updated'} color={'alert-success'}/>}
+        <Meta title={`Welcome ${user.name}`}/>
         <Header/>
     <div class="hero min-h-screen bg-base-200">
        

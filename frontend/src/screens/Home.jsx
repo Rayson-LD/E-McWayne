@@ -10,6 +10,8 @@ import Message from '../components/Message'
 import Pagination from '../components/Pagination'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import Meta from '../components/Meta'
+import { Link } from 'react-router-dom'
 function Home() {
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
@@ -21,20 +23,22 @@ function Home() {
   const Keyword = params.Keyword
   const pageNumber = params.pageNumber || 1
   useEffect(() => {
-    console.log(top)
     dispatch(listProducts(Keyword,pageNumber))
     dispatch(listTopProducts())
   }, [dispatch,Keyword,pageNumber])
   return (
     <div>
+     <Meta/>
         <Header/>
         {LoadCar?<Loader skeletons={1} w={'w-full'} h={'h-80'}/>
         :ErrorCar?<Message error={ErrorCar} color={error}/>
         :!Keyword&&<Carousel autoPlay={true}>
           {top.map((p)=>(
-            <div key={p.id}>
-            <img src={p.image} />
+            <div key={p._id}>
+            <img src={p.image} alt={p.name}/>
+            <Link to={`/product/pid=${p._id}/item=${p.name}`}>
             <p className="legend">{p.name}</p>
+            </Link>
         </div>
           ))}
                 

@@ -5,7 +5,7 @@ import Rating from '../components/Rating'
 import Message from '../components/Message'
 import {useSelector,useDispatch} from'react-redux'
 import { listProductDetails,reviewList } from '../actions/productActions'
-
+import Meta from '../components/Meta'
 function SingleProductScreen() {
   const param = useParams()
   const dispatch = useDispatch()
@@ -44,7 +44,9 @@ const submitHandler = () =>{
   dispatch(reviewList(param.id,{rating,comment}))
 }
   return (
+
     <div>
+      <Meta title={product.name}/>
       <Header/>
       <div className="flex flex-col w-full lg:flex-row mt-5">
         <div className="grid flex-grow px-2 bg-ghost rounded-box place-items-left">
